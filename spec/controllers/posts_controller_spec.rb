@@ -31,7 +31,7 @@ RSpec.describe PostsController, type: :controller do
       expect(assigns(:post)).to eq(my_post)
     end
   end
-  
+
   describe "GET #new" do
     it "returns http success" do
       get :new
@@ -49,7 +49,7 @@ RSpec.describe PostsController, type: :controller do
     end
   end
 
-  describe "POST create" do
+  describe "POST #create" do
     it "increases the number of Post by 1" do
       expect{ post :create, params: { post: { title: RandomData.random_sentence, body: RandomData.random_paragraph } } }.to change(Post,:count).by(1)
     end
