@@ -15,6 +15,7 @@ class PostsController < ApplicationController
     @post = Post.new
     @post.title = params[:post][:title]
     @post.body = params[:post][:body]
+    
     if @post.save
       flash[:notice] = "Post was saved."
       redirect_to @post
@@ -51,6 +52,6 @@ class PostsController < ApplicationController
     else
       flash.now[:alert] = "There was an error deleting the post."
       render :show
-    end 
+    end
   end
 end
