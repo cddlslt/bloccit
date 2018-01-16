@@ -1,10 +1,19 @@
 require 'random_data'
+# Create Topics
+15.times do
+  Topic.create!(
+    name:        RandomData.random_sentence,
+    description: RandomData.random_paragraph
+  )
+end
+topics = Topic.all
 
 # Create Posts
 50.times do
   Post.create!(
-    title: RandomData.random_sentence,
-    body: RandomData.random_paragraph
+    topic:  topics.sample,
+    title:  RandomData.random_sentence,
+    body:   RandomData.random_paragraph
   )
 end
 posts = Post.all
@@ -35,11 +44,12 @@ end
   )
 end
 
-puts"#{Post.count} posts before find_or_create_by"
-Post.find_or_create_by!(title: "Unique Title", body: "Unique body")
-puts"#{Post.count} posts after find_or_create_by"
+# puts"#{Post.count} posts before find_or_create_by"
+# Post.find_or_create_by!(title: "Unique Title", body: "Unique body")
+# puts"#{Post.count} posts after find_or_create_by"
 
 puts "Seed finished"
+puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
 puts "#{Advertisement.count} advertisements created"
