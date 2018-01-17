@@ -62,4 +62,28 @@ RSpec.describe SponsoredPostController, type: :controller do
     end
   end
 
+  describe "POST #create" do
+    it "increases the number of SponsoredPost by 1" do
+      expect{ post :create, params: { post: { title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_integer } } }.to change(SponsoredPost,:count).by(1)
+    end
+
+    it "assigns the new sponsored post to @sponsored_post" do
+      post :create, params: { post: { title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_integer } }
+      expect(assigns(:sponsored_post)).to eq SponsoredPost.last
+    end
+
+    it "redirects to the new sponsored post" do
+      post :create, params: { post: { title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_integer } }
+      expect(response).to redirect_to [my_topic, SponsoredPost.last]
+    end
+  end
+
+  describe "PUT #update" do
+
+  end
+
+  describe "DELETE #destroy" do
+
+  end
+
 end
