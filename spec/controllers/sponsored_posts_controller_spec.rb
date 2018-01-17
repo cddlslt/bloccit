@@ -79,7 +79,28 @@ RSpec.describe SponsoredPostsController, type: :controller do
   end
 
   describe "PUT #update" do
+    it "updates post with expected attributes" do
+      new_title = RandomData.random_sentence
+      new_body = RandomData.random_paragraph
+      new_price = RandomData.random_integer
 
+      put :update, params: { topic_id: my_topic.id, id: my_sponsored_post.id, sponsored_post: { title: new_title, body: new_body, price: new_price } }
+
+      updated_sponsored_post = assigns(:sponsored_post)
+      expect(updated_sponsored_post.id).to eq my_sponsored_post.id
+      expect(updated_sponsored_post.title).to eq new_title
+      expect(updated_sponsored_post.body).to eq new_body
+      expect(updated_sponsored_post.price).to eq new_price
+    end
+
+    it "redirects to the updated post" do
+      new_title = RandomData.random_sentence
+      new_body = RandomData.random_paragraph
+      new_price = RandomData.random_integer
+
+      put :update, params: { topic_id: my_topic.id, id: my_sponsored_post.id, sponsored_post: { title: new_title, body: new_body, price: new_price } }
+      expect(response).to redirect_to [my_topic, my_sponsored_post]
+    end
   end
 
   describe "DELETE #destroy" do
