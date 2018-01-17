@@ -104,7 +104,16 @@ RSpec.describe SponsoredPostsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
+    it "deletes the post" do
+      delete :destroy, params: { topic_id: my_topic.id, id: my_sponsored_post.id }
+      count = SponsoredPost.where({id: my_sponsored_post.id}).size
+      expect(count).to eq 0
+    end
 
+    it "redirects to topic show" do
+      delete :destroy, params: { topic_id: my_topic.id, id: my_sponsored_post.id }
+      expect(response).to redirect_to my_topic
+    end
   end
 
 end
