@@ -15,11 +15,7 @@
         <li><%= link_to "Bloccit", root_path %></li>
         <li><%= link_to "Topics", topics_path %></li>
         <li><%= link_to "About", about_path %></li>
-        <!-- <li>
-          <button type="button" class="btn btn-secondary btn-lg btn-block">
-            <%= link_to "Follow me", "https://www.facebook.com/mike.oates2", class: "social-btn" %>
-          </button>
-        </li> -->
+        <li class = "pull-right"><%= link_to "Sign Up", new_user_path %></li>
       </ul>
 
       <% if flash[:notice] %>
