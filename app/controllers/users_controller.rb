@@ -25,10 +25,16 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.visible_to(current_user)
+    @favorite_posts = get_favorite_posts(@user)
   end
 
   private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def get_favorite_posts(user)
+    posts = Post.all
+    favorite_posts = posts.select{ |post| post.favorites.find_by_user_id(user.id) }
   end
 end

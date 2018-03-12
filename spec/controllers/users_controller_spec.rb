@@ -62,9 +62,13 @@ RSpec.describe UsersController, type: :controller do
 
   describe "not signed in" do
     let(:factory_user) {create(:user) }
+    let(:other_user) { create(:user) }
+    let(:post_a) { create(:post, user: other_user) }
+    let(:post_b) { create(:post, user: other_user) }
 
     before do
       post :create, params: { user: new_user_attributes }
+      favorite = Favorite.create!(user: factory_user, post: post_a)
     end
 
     it "returns http success" do
@@ -80,6 +84,16 @@ RSpec.describe UsersController, type: :controller do
     it "assigns factory_user to @user" do
       get :show, params: { id: factory_user.id }
       expect(assigns(:user)).to eq(factory_user)
+    end
+
+    it "includes user's favorite posts in @favorite_posts" do
+      get :show, params: { id: factory_user.id }
+      expect(assigns(:favorite_posts)[0]).to eq(post_a)
+    end
+
+    it "excludes non-favorite posts from @favorite_posts" do
+      get :show, params: { id: factory_user.id }
+      expect(assigns(:favorite_posts)).not_to include(post_b)
     end
   end
 
