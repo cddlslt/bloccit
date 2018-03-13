@@ -39,11 +39,11 @@ class User < ApplicationRecord
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
   end
 
-  def no_name_message
+  def comments_posts_count
     if comments.count == 0 && posts.count == 0
       "#{name} has not submitted any posts yet."
     else
       name
     end
-  end 
+  end
 end
