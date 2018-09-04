@@ -2,4 +2,3 @@
 
 Made with my mentor at [Bloc](http://bloc.io)
 
-Approximately 75% of the code here is mine.  
